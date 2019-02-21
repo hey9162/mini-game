@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <title>减轻茶</title>
+    <meta
+      name="viewport"
+      content="initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit:cover"
+    />
+    <script src="/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/style.less">
+    <link rel="stylesheet" href="https://web.rrzuzu.com/WebStatic/jianqing/shengdan/weui.min.css">
+    <link rel="stylesheet" href="https://web.rrzuzu.com/WebStatic/jianqing/shengdan/jquery-weui.min.css">
+    <script src="/js/rem-init.js"></script>
+    <script src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    <script src="/js/main.js"></script>
+  </head>
+  <style>
+  /* #alertWechat{
+    position: absolute;
+  }
+  .shade .shade-con{
+    position: absolute !important;
+  } */
+  </style>
+  <body>
+    <div class="container way">
+        <!--  -->
+      <div class="center-modal" style="margin-top: 3rem;" >
+        <form action="#" class="form">
+          <h4>请填写收货地址</h4>
+          <div class="form-group">
+            <label class="lab">
+              姓名：
+            </label>
+            <input type="text" maxlength="50" class="inp" name="name"  placeholder="请输入姓名">
+          </div>
+          <div class="form-group">
+            <label class="lab">
+              手机号：
+            </label>
+            <input type="tel" maxlength="11" class="inp" name="phone"  placeholder="请输入手机号">
+          </div>
+          <div class="form-group">
+            <label class="lab">
+              验证码：
+            </label>
+            <input type="text" maxlength="4" class="inp" name="code" placeholder="请输入验证码">
+            <input class="code-btn" id="code" type="button" value="获取验证码" />
+          </div>
+          <div class="form-group">
+            <label class="lab">
+              所在地区：
+            </label>
+            <input readonly id="select" class="inp" name="province" placeholder="请选择收货地址">
+          </div>
+          <div class="form-group">
+            <label class="lab textarea-lab">
+              详细地址：
+            </label>
+            <textarea class="inp" maxlength="200" cols="30" name="address" placeholder="请输入详细地址" rows="4"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="lab">
+            </label>
+            <button type="button" id="save" class="btn">提交</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script src="https://web.rrzuzu.com/WebStatic/jianqing/shengdan/jquery-weui.min.js"></script>
+    <script src="https://web.rrzuzu.com/WebStatic/jianqing/shengdan/city-picker.min.js"></script>
+    <script>
+      $(function(){
+        var screenHeight;
+        if (window.innerHeight){
+            screenHeight = window.innerHeight;
+        } else if ((document.body) && (document.body.clientHeight)){
+            screenHeight = document.body.clientHeight;
+        }
+        
+
+        // $("html,body").height(screenHeight);
+        // $('input').blur(function(){
+        //   // $("html,body").height(screenHeight);
+        //   // alert(1)
+        //   $('.container').css({'position':'fixed','bottom':'0'});
+        // })
+
+        // $('input,textarea').bind('focus',function(){
+        //   $('.center-modal').css('position','static');
+        //   //或者$('#viewport').height($(window).height()+'px');
+        // }).bind('blur',function(){
+        //   $('.center-modal').css({'position':'fixed','bottom':'0'});
+        //   //或者$('#viewport').height('auto');
+          
+        //   $('.container').css({'position':'fixed','bottom':'0'});
+        // });
+
+        function validtor() {
+          var name = $.trim($(".inp[name=name]").val()),
+          phone = $.trim($(".inp[name=phone]").val()),
+          province = $.trim($(".inp[name=province]").val()),
+          address = $.trim($(".inp[name=address]").val()),
+          code = $.trim($(".inp[name=code]").val());
+          if(name == ''){
+            LM.alert.Wechat("姓名不能为空");
+            return false;
+          }else if(!isName(name)){
+            LM.alert.Wechat("请输入正确的姓名");
+            return false;
+          };
+          if(phone == ''){
+            LM.alert.Wechat("手机号不能为空");
+            return false;
+          }else if(!isMobile(phone)){
+            LM.alert.Wechat("请输入正确的手机号");
+            return false;
+          };
+          if(code == ''){
+            LM.alert.Wechat("验证码不能为空");
+            return false;
+          }
+          if(province == ''){
+            LM.alert.Wechat("所在地区不能为空");
+            return false;
+          }
+          if(address == ''){
+            LM.alert.Wechat("详细地址不能为空");
+            return false;
+          }
+          return {
+              name:name,
+              phone:phone,
+              address:address,
+              province: province,
+              code:code
+            }
+        }
+        function getCode(){
+          var phone = $.trim($(".inp[name=phone]").val());
+          if(phone == ''){
+            LM.alert.Wechat("手机号不能为空");
+            return false;
+          }else if(!isMobile(phone)){
+            LM.alert.Wechat("请输入正确的手机号");
+            return false;
+          };
+          LM.alert.Over({
+            base:apiURL,
+            phone:phone,
+            yes:function(){
+              if($.trim($("#img_code").val()) == ''){
+                LM.alert.Wechat("请输入图形验证码");
+                return
+              }
+              $.ajax({
+                type:'POST',
+                url:apiURL+'/code/sendsms',
+                data:{phone:phone,captcha:$("#img_code").val()},
+                success:function(res){
+                  if(res.code === 12000){
+                    $(".shade").remove();
+                    settime($("#code")[0])
+                  }else{
+                    LM.alert.Wechat("图形验证码输入错误");
+                  }
+                }
+              });
+            }
+          });
+          
+        };
+        $("#code").click(function(){
+          getCode();
+        });
+        $("#save").click(function(){
+          window.location.href = './main.html';
+        //  if(validtor()){
+        //   $(this).prop("disabled",true);
+        //   var data = validtor();
+        //   $.ajax({
+        //     type:'POST',
+        //     url:apiURL+'/new_year/save_address',
+        //     data: data,
+        //     success:function(res){
+        //       if(res.code === 12000){
+        //         LM.alert.Wechat("保存成功");
+        //         setTimeout(function(){
+        //           window.location.href = './main.html';
+        //         },2000);
+        //         $("#save").prop("disabled",false);
+        //       }else{
+        //         LM.alert.Wechat(res.msg);
+        //         $("#save").prop("disabled",false);
+        //       }
+        //     }
+        //   });
+        //  }
+        });
+        $("#select").cityPicker({});
+        $("#select").click(function(){
+          $('.inp').blur();
+          $(this).cityPicker({});
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <title>减轻茶圣诞节</title>
+    <meta
+      name="viewport"
+      content="initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit:cover"
+    />
+    <link rel="stylesheet" href="./css/style.less">
+    <script src="jquery.js"></script>
+    <script src="cc.js"></script>
+    <script src="rem.js"></script>
+    <script src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <img src="./images/pan.png" id="pan" class="hide" alt="" />
+    <img src="./images/tree.png" id="tree" class="hide" alt="" />
+    <div class="container">
+      <div class="canvas-container">
+        <div class="main">
+          <img class="logo" src="./images/logo.png" alt="">
+        </div>
+        <canvas class="canvas" id="canvas" width="320px" height="320px"></canvas>
+      </div>
+      <div class="center-modal" id="modal">
+        <img id="checkPoint1" class="hide" src="./images/first.png" alt="">
+        <img id="checkPoint2" class="hide" src="./images/second.png" alt="">
+        <img id="checkPoint3" class="hide" src="./images/three.png" alt="">
+      </div>
+      <button id="ins" class="start start-ins" onclick="insert()"></button>
+    </div>
+    <script>
+        
+      $(function(){
+        run();
+        startPonit(1);
+      });
+    </script>
+  </body>
+</html>

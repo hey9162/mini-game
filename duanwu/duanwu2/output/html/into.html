@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>游戏简介</title>
+  <link rel="stylesheet" href="http://web.rrzuzu.com/WebStatic/duanwu/css/style.css">
+  <script src="http://web.rrzuzu.com/WebStatic/duanwu/js/rem-init.js"></script>
+  <script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="main" style="overflow: hidden;">
+    <div id="danmu1"></div>
+    <div id="danmu2"></div>
+    <div id="danmu3"></div>
+    <div class="start">
+      <div class="start-btn" onclick="window.location.href='main.html'"></div>
+    </div>
+  </div>
+  <script>
+    function danmu() {
+      var arrDan = [{type: 1,tit:'彭获得1.081.金红包'},
+      {type: 2,tit:'hey9162获得甜味味粽子一箱'},
+      {type: 2,tit:'秋颖获得甜味味粽子ss味粽子ss味粽子ss味粽子sss'},
+      {type: 2,tit:'不想是的方法获得甜味味粽制作中g'}];
+      for(var i = 1; i < 4; i++){
+        var index = Math.floor((Math.random()*arrDan.length));
+        var p = document.createElement("p");
+        $(p).addClass("p"+i);
+        $(p).text(arrDan[index].tit);
+        $( "#danmu" + i ).append(p);    
+        console.log($( "#danmu" + i + " .p").length);
+        if($( "#danmu" + i + " .p"+i).length > 3){
+          $( "#danmu" + i + " .p"+i+":first").remove();
+        }
+      }
+    }
+    $(function(){
+      danmu()
+      setInterval(function () {
+        danmu() 
+      },2000)
+    });
+  </script>
+</body>
+</html>

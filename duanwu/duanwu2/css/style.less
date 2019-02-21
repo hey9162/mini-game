@@ -1,0 +1,158 @@
+@import 'normalize';
+@import 'reset';
+body,html{
+  height: 100%;
+  padding: 0;
+}
+@keyframes zong {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+.roll {
+  position: absolute;
+  animation: zong 4s;
+  -webkit-animation: zong 4s;
+  height: 4rem;
+  width: 4rem;
+}
+.div {
+  position: absolute;
+  width: 4rem;
+  height: 100%;
+  overflow: hidden;
+}
+.main {
+  margin: 0 auto;
+  min-height: 30rem;
+  height: 100%;
+  background:
+  url(../images/top.png) left top no-repeat,
+  url(../images/bottom.jpg) left bottom no-repeat,
+  rgba(229, 229, 229, 0.85);
+}
+.start{
+  height: 100%;
+  background: ~'url(../images/center.png) 50% 30% / 75% 50% no-repeat';
+  background-size: 95%;
+}
+.start-btn{
+  position: absolute;
+  bottom: 4rem;
+  left: 14%;
+  width: 80%;
+  height: 5rem;
+  background-image: url(../images/start-btn.png);
+  background-size: 100% 100%;
+}
+.count{
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 7rem;
+  height: 5rem;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.footer{
+  position: absolute;
+  padding: 0.25rem 0;
+  bottom: 0;
+  left: 0;
+  height: 4rem;
+  width: 100%;
+  justify-content:space-around;
+  border: 0.25rem solid #f5f5f5;
+  display: flex;
+  .zongzi{
+    width: 3rem;
+    height: 100%;
+    background-size: 100% 100%;
+    background-color: #f5f5f5;
+  }
+}
+.mask{
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 9;
+  background-color: rgba(1,1,1,0.6);
+  .model{
+    position: relative;
+    width: 100%;
+    height: 18rem;
+    background-position: center center;
+    background-size: 90%;
+    background-repeat: no-repeat;
+    .close{
+      position: absolute;
+      top: 0;
+      right: 0.5rem;
+      height: 6rem;
+      width: 2rem;
+    }
+  }
+  .btn-draw{
+    display: none;
+    width: 80%;
+    height: 3rem;
+    background-image: url(../images/btn-dh.png);
+    background-size: 100% 100%;
+  }
+}
+@keyframes danmu {
+  0% {
+    left: -15rem;
+  }
+  100% {
+    left: 220%;
+  }
+}
+/* 弹幕*/
+#danmu2{
+  position: absolute;
+  top: 1rem;
+}
+#danmu3{
+  position: absolute;
+  top: 2rem;
+}
+#danmu1{
+  position: absolute;
+  top: 3rem;
+}
+#danmu1,#danmu2,#danmu3{
+  text-align: center;
+  height: 2em;
+  overflow: hidden;
+  width: 100%;
+  p{
+    position: absolute;
+    font-weight: 600;
+    color: #111;
+    width: 16rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    &.p1{
+      animation: danmu 9s infinite linear;
+    }
+    &.p2{
+      animation: danmu 8s infinite linear;
+    }
+    &.p3{
+      animation: danmu 8s infinite linear;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit:cover">
+    <meta charset="utf-8">
+    <title>减轻茶11.11出租单身</title>
+    <link rel="stylesheet" href="./css/style.less">
+    <script src="./js/rem-init.js"></script>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/common.js"></script>
+  </head>
+  <body>
+    <div class="full">
+      <div class="center">
+        <img class="def" src="./images/bj2.png" alt="">
+        <div class="btn-content">
+          <a href="./make.html?sex=1" class="btn"></a>
+          <a href="./make.html?sex=2" class="btn"></a>
+        </div>
+      </div>
+    </div>
+    <script>
+      // var appId = 
+      var localUrl = baseUrl +'/auth?redirectUrl='+  window.location.href
+      var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appId+'&redirect_uri='
+      +encodeURIComponent(localUrl)+'&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect'
+      // window.location.href = url;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <title>减轻茶圣诞节</title>
+    <meta
+      name="viewport"
+      content="initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit:cover"
+    />
+    <link rel="stylesheet" href="./css/style.less">
+    <script src="jquery.js"></script>
+    <script src="rem.js"></script>
+    <script src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="canvas-container">
+      </div>
+      <div class="center-modal" id="modal">
+        <img id="rules" src="./images/rouls.png" alt="">
+        <div class="btn-content">
+          <button class="start-btn" type="button"></button>
+        </div>
+      </div>
+    </div>
+    <script>
+      $(function(){
+        $(".start-btn").click(function(){
+          var canRun = true;
+          if(canRun){
+            window.location.href = '/';
+          }else{
+            window.location.href = '';
+          }
+        });
+        
+      });
+    </script>
+  </body>
+</html>

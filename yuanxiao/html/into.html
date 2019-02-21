@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit:cover">
+    <meta charset="utf-8">
+    <title>减轻茶元宵节</title>
+    <link rel="stylesheet" href="/css/style.less">
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script src="/js/rem-init.js"></script>
+    
+  </head>
+  <body>
+    <div class="container into">
+      <div class="rule"></div>
+      <div class="start-btn"></div>
+      <div style="display:none;" class="center-modal">
+        <!-- <img class="img hide head" src="./../images/yuan.png" alt="" /> -->
+        <div class="text">
+          1.每位用户都有3次抽奖机会；<br>
+          2.每次游戏都有30S的倒计时间；<br>
+          3.进入游戏页面后，点击九宫格中出现最多的图片，选择错误将自动缩短5S钟，倒计时结束，则游戏结束；<br>
+          4.每局游戏得分达到150分以上即可获得抽奖机会；<br>
+          5.实体奖品将在活动结束后3个工作日内发货，现金红包请添加小编微信号
+          <span style="text-decoration: underline;font-weight: 700">jqc18501601874</span>
+           领取，领取红包时请提供真实截图；<br>
+          6.本次活动最终解释权归 <span id="project">减轻茶</span> 所有；
+        </div>
+      </div>
+      <div style="display:none;" class="mask"></div>
+    </div>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/activity.js"></script>
+    <script>
+      $(function(){
+        $('.start-btn').click(function(){
+          window.location.href = '/html/main.html'
+        });
+        $(".rule").click(function(){
+          showModal(modalData.rules)
+        });
+        if(projectName){
+          $("#project").text(projectName)
+        };
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit:cover">
+    <meta charset="utf-8">
+    <title>减轻茶</title>
+    <script src="https://web.rrzuzu.com/WebStatic/jianqing/wx-test/js/rem-init.js"></script>
+    <link rel="stylesheet" href="https://web.rrzuzu.com/WebStatic/jianqing/wx-test/css/style.css">
+    <link rel="stylesheet" href="https://web.rrzuzu.com/WebStatic/jianqing/shengdan/weui.min.css">
+    <link rel="stylesheet" href="https://web.rrzuzu.com/WebStatic/jianqing/shengdan/jquery-weui.min.css">
+    <script src="https://res2.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script src="http://pubweb.oss-cn-hangzhou.aliyuncs.com/WebStatic%2Fcommon%2Flib%2Fanalysis.native.js"></script>
+  </head>
+  <body>
+    
+    <div class="carousel-box" id="carousel-box">
+      <ul class="carousel" id="list">
+        <li>111</li>
+        <li>111000</li>
+      </ul>
+      <ul  class="carousel" id="list2"></ul>
+    </div>
+    <main class="container">
+      <div class="orther">
+        <div class="rules"></div>
+        <div id="hist" class="hist" style="display:none;"></div>
+      </div>
+      <div class="main">
+        <div class="balls-box">
+          <div class="ball radius-3 jq-1 ani2"></div>
+          <div class="ball radius-3 jq-2 ani3"></div>
+          <div class="ball radius-3 jq-3 ani4"></div>
+          <div class="ball radius-3 jq-4 ani5"></div>
+          <div class="ball radius-3 opc1 ani6"></div>
+          <div class="ball radius-3 opc2 ani1"></div>
+          <div class="ball radius-2 box1 ani7"></div>
+          <div class="ball radius-2 box2 ani8"></div>
+          <div class="ball radius-2 box3 ani9"></div>
+          <div class="ball radius-2 box3"></div>
+          <div class="ball radius-2 box3 right"></div>
+          <div class="ball radius-3"></div>
+          <div class="ball radius-3 opc3"></div>
+          <div class="ball radius-3 opc4"></div>
+          <div class="ball radius-3 money ani10"></div>
+        </div>
+        <div class="btn-box">
+          <div class="get-btn">
+            <p class="count">今天剩余次数<span id="count"></span>次</p>
+            <img src="https://web.rrzuzu.com/WebStatic/jianqing/wx-test/images/get.png" alt="">
+          </div>
+          <div class="start-btn">
+            <img class="click" src="https://web.rrzuzu.com/WebStatic/jianqing/wx-test/images/click.png" alt="">
+          </div>
+        </div>
+        <div id="jqBox" class="jq-box">
+          
+        </div>
+        <div class="bottom-box">
+          <img id="bottomJq" style="display:none;" class="jq" alt="">
+          <div class="but-exchange disabled">
+            兑换
+          </div>
+        </div>
+      </div>
+      <div style="display:none;" class="center-modal">
+        <div class="close" style="display:none;"></div>
+        <img class="img" src="" alt="">
+        <img class="button-img" style="display:none;width: 50%"  src="https://web.rrzuzu.com/WebStatic/jianqing/wx-test/images/card-btn.png" alt="">
+      </div>
+      <div style="display:none;" class="mask"></div>
+    </main>
+    <script src="https://web.rrzuzu.com/WebStatic/jianqing/wx-test/js/jquery.min.js"></script>
+    <script src="https://web.rrzuzu.com/WebStatic/jianqing/wx-test/js/activity.js"></script>
+    <script src="https://web.rrzuzu.com/WebStatic/jianqing/wx-test/js/main.js"></script>
+    <script src="https://web.rrzuzu.com/WebStatic/jianqing/shengdan/jquery-weui.min.js"></script>
+    <script>
+    $(function() {
+        pushHistory();
+    });
+    function pushHistory() {
+        window.addEventListener("popstate", function(e) {
+    //          alert("后退");
+            self.location.reload();
+        }, false);
+        var state = {
+            title : "",
+            url : "#"
+        };
+        window.history.replaceState(state, "", "#");
+    };
+    </script>
+    <script>
+      // $(document).click(function(){
+      //   alert(1)
+      //   window.location.href = './address.html';
+      // })
+      $(function(){
+        function initCarousel(){
+          var speed = 50;
+          var list = $('#list')[0];
+          var list2 = $('#list2')[0];
+          var rule = $('#carousel-box')[0];
+          list2.innerHTML = list.innerHTML;
+          function Marquee() {
+            if (list2.offsetTop - rule.scrollTop <= 0)
+                rule.scrollTop -= list.offsetHeight;
+            else {
+                rule.scrollTop++;
+            }
+          }
+          setInterval(Marquee, speed);
+        }
+        $('.rules').click(function(){
+          showModal(modalData.rules);
+        })
+        $('.get-btn').on('click.getCunt',function(e){
+          showModal(modalData.share);
+        });
+
+        $(".but-exchange").on('click',function(){
+          if($(this).hasClass('disabled')){
+            LM.alert.Wechat("集齐4种口味才能兑换哦！");
+          }else{
+            // goPage('address.html');
+            window.location.href = './'+ pageUrl;
+          }
+        });
+        // showModal(modalData['card'+(Math.floor(Math.random()*4)+1)]);
+        $(".start-btn").click(function(){
+          if(isRun || $(this).hasClass('disabled-btn')){
+            return;
+          }
+          startOrStop(true);
+            var timer = setTimeout(function(){
+                startOrStop(false);
+                switch (1) {
+                  case 1:
+                    showModal(modalData.black);
+                    break;
+                  case 2:
+                    showModal(modalData.blue);
+                    break;
+                  case 3:
+                    showModal(modalData.pink);
+                    break;
+                  case 4:
+                    showModal(modalData.green);
+                    break;
+                  case 5:
+                    showModal(modalData.money);
+                    break;
+                  default:
+                    showModal(modalData['card'+(Math.floor(Math.random()*4)+1)]);
+                    break;
+                }
+                clearTimeout(timer);
+              },3000)
+        //   $.ajax({
+        //   url:apiURL+'/new_year/lottery',
+        //   method:'post',
+        //   success:function(res){
+        //     if(res.code !== 12000) {
+        //       LM.alert.Wechat(res.msg);
+        //       return;
+        //     }
+        //     pageData.count = res.data.count;            
+        //     if(res.data.type && res.data.type !== 5){
+        //       pageData.jq.push({url: imgBase+'/images/j'+res.data.type+'.png',type:res.data.type})
+        //     }
+        //     startOrStop(true);
+        //     var timer = setTimeout(function(){
+        //         startOrStop(false);
+        //         switch (res.data.type) {
+        //           case 1:
+        //             showModal(modalData.black);
+        //             break;
+        //           case 2:
+        //             showModal(modalData.blue);
+        //             break;
+        //           case 3:
+        //             showModal(modalData.pink);
+        //             break;
+        //           case 4:
+        //             showModal(modalData.green);
+        //             break;
+        //           case 5:
+        //             showModal(modalData.money);
+        //             break;
+        //           default:
+        //             showModal(modalData['card'+(Math.floor(Math.random()*4)+1)]);
+        //             break;
+        //         }
+        //         clearTimeout(timer);
+        //       },3000)
+        //     $("#count").text(pageData.count);
+        //   }
+        // });
+        
+      });
+        // $.showLoading()
+        
+        $.ajax({
+          url:apiURL+'/new_year/detail',
+          method:'post',
+          success:function(res){
+            if(res.code !== 12000) return;
+            var data = res.data;
+            pageData.jq = transJq(data.acitivyLogs)
+            pageData.slideshow = data.newYearWinerDtos;
+            pageData.count = data.changeCount;
+            pageData.isShowRecord = data.isShowRecord;
+            initPage();
+            initCarousel();
+            $.hideLoading()
+          }
+        });
+      });
+      
+      wx.ready(function() {
+        var title = "快来0元领减轻茶！";
+        var desc = "每天点点就能0元领减轻茶，点击加入>>";
+        var shareImgUrl = "http://pic.51fen.com/webadmin/2018110711063184908.png";
+        var link = "http://web.rrzuzu.com" + "/WebStatic/jianqing/wx-test/html/into.html";
+        wx.onMenuShareAppMessage({
+          title: title,
+          desc: desc,
+          link: link,
+          imgUrl: shareImgUrl,
+          success: function() {
+            $.ajax({
+              url:apiURL+'/new_year/add_count',
+              method:'post',
+              success:function(res){
+                if(res.code !== 12000) return;
+                var data = res.data;
+                pageData.count = data.count;
+                
+                initPage();
+              }
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

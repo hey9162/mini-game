@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta
+      name="viewport"
+      content="initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit:cover"
+    />
+    <meta charset="utf-8" />
+    <title>减轻茶元宵节</title>
+    <script src="/js/rem-init.js"></script>
+    <link rel="stylesheet" href="/css/style.less" />
+    <link
+      rel="stylesheet"
+      href="https://web.rrzuzu.com/WebStatic/jianqing/shengdan/weui.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://web.rrzuzu.com/WebStatic/jianqing/shengdan/jquery-weui.min.css"
+    />
+    <script src="https://res2.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script src="http://pubweb.oss-cn-hangzhou.aliyuncs.com/WebStatic%2Fcommon%2Flib%2Fanalysis.native.js"></script>
+  </head>
+  <body>
+    <main class="container">
+      <div class="top">
+        <div class="head-img"><img class="head" src="" alt="" /></div>
+        <div class="time" id="time"></div>
+      </div>
+      <div class="main">
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+      </div>
+      <div style="display:none;" class="center-modal">
+        <img class="img hide head" src="./../images/yuan.png" alt="" />
+        <p class="tip hide"></p>
+        <div class="btn again hide">再玩一次</div>
+        <div class="btn get get1 hide">点击领取奖品</div>
+        <div class="btn get get2 hide">赶紧去抽奖</div>
+        <div class="btn continue hide">继续抽奖</div>
+        <div class="yao hide">
+          <img class="yao-img lotsShake" src="./../images/yao.png" alt="" />
+          <span class="yao-text">摇一摇！</span>
+        </div>
+      </div>
+      <div style="display:none;" class="mask"></div>
+    </main>
+    <audio id="audio" preload="preload" class="hide"
+     src="http://pubweb.oss-cn-hangzhou.aliyuncs.com/WebStatic/jianqing/load.mp3"></audio>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/activity.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="https://web.rrzuzu.com/WebStatic/jianqing/shengdan/jquery-weui.min.js"></script>
+    <script>
+      $(function(){
+        // $('body').click(function(){
+        //   $("#audio").trigger('play')
+        // });
+      $('body').one('touchstart', function () {
+        var audio = document.getElementById("audio");
+        audio.play();
+        audio.setAttribute('src', 
+        'http://pubweb.oss-cn-hangzhou.aliyuncs.com/WebStatic/jianqing/5018.mp3');
+        audio.load();
+      })
+      $('.head').attr('src',headimg);
+      function getWordCnt(arr) {
+        var obj = {};
+        for (var i = 0, l = arr.length; i < l; i++) {
+          var item = arr[i];
+          obj[item] = obj[item] + 1 || 1;
+        }
+        return obj;
+      }
+      var imgUrl = [
+        { url: "./../images/yuan.png", class: "yuan" },
+        { url: "./../images/jq.png", class: "jq" },
+        { url: "./../images/deng.png", class: "deng" }
+      ];
+      function transCell() {
+        var cellImg = $(".cell");
+        cellImg.each(function(i) {
+          $(this).empty();
+        });
+        cellImg.each(function(i) {
+          var index = randomNum(0, 2);
+          $(this).append(
+            "<img src=" +
+              imgUrl[index].url +
+              " class=" +
+              imgUrl[index].class +
+              ">"
+          );
+        });
+        var indexAarr = [$(".yuan").length, $(".jq").length, $(".deng").length];
+        var obj = getWordCnt(indexAarr);
+        console.log(obj);
+        var count = 0;
+        for(var i in obj){
+          count++;
+        };
+        if(count === 3){
+          transCell();
+          return 
+        }
+        if (obj[4] === 2 || obj[3] === 3) {
+          transCell();
+        }
+      }
+      transCell();
+      var score = 0;
+      var initNum = 10;
+      function transTime() {
+        $("#time").text(initNum);
+        var timer = setInterval(function() {
+          if (initNum > 0) {
+            initNum--;
+            $("#time").text(initNum);
+          } else {
+            initNum = 0;
+            $("#time").text(initNum);
+            clearInterval(timer);
+            overGame();
+          }
+        }, 1000);
+      }
+      // transTime();
+      function overGame() {
+        var text = "您的成绩为："+ score+ "分</br>"
+        +'<span>亲，总分高于60分才可以参与抽奖</span></br>'
+        + '别灰心，继续努力哦~~';
+        var text2 = "您的成绩为："+ score+ "分</br>"
+        +'<span>亲，总分高于60分才可以参与抽奖</span></br>'
+        + '恭喜您获得一次抽奖机会，赶快去抽奖吧~~';
+        if (score > 60) {
+          showModal(modalData.succ, text2);
+        } else {
+          showModal(modalData.fail, text);
+        }
+      }
+      showModal(modalData.succ, '0');
+      function resetGame() {
+        hideModal();
+        initNum = 10;
+        score = 0;
+        transTime();
+      }
+      $(".cell").on("click", "img", function() {
+        var clas = $(this).attr("class");
+        if ($(".cell ." + clas).length > 3) {
+          transCell();
+          score = score + 5;
+        } else {
+          initNum = initNum - 5;
+        }
+      });
+      $(".again,.continue").click(function() {
+        resetGame();
+      });
+      $(".get2").click(function() {
+        hideModal();
+        showModal(modalData.get);
+      });
+      $(".get1").click(function() {
+        hideModal();
+        window.location.href = '/html/address.html'
+      });
+      // showModal(modalData.money);
+      // showModal(modalData.jq);
+      canDraw = true;
+      if (window.DeviceMotionEvent) {
+        var speed = 25;
+        var x = (y = z = lastX = lastY = lastZ = 0);
+        window.addEventListener("devicemotion", function() {
+          var acceleration = event.accelerationIncludingGravity;
+          x = acceleration.x;
+          y = acceleration.y;
+          if (Math.abs(x - lastX) > speed || Math.abs(y - lastY) > speed) {
+            if(canDraw){
+              $("#audio").trigger('play')
+              canDraw = false;
+              hideModal()
+              showModal(modalData.jq);
+            }
+          }
+          lastX = x;
+          lastY = y;
+        });
+      }
+    })
+    </script>
+  </body>
+</html>

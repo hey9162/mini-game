@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit:cover">
+  <meta charset="utf-8">
+  <title>减轻茶11.11出租单身</title>
+  <link rel="stylesheet" href="https://web.rrzuzu.com/WebStatic/jianqing/css/style.css">
+  <script src="https://web.rrzuzu.com/WebStatic/jianqing/js/exif.js"></script>
+  <script src="https://web.rrzuzu.com/WebStatic/jianqing/js/rem-init.js"></script>
+  <script src="https://web.rrzuzu.com/WebStatic/jianqing/js/jquery.min.js"></script>
+  <script>
+      // var baseUrl ="http://jiangxiaobai.natapp1.cc";
+      var baseUrl ="http://localhost:8080";
+  </script>
+</head>
+
+<body>
+  <main id="main">
+    <div class="head-img">
+      <div class="remove" style="display: none"></div>
+      <input type="file" id="file" class="file-inp">
+      <img class="img" id="dragImg" src="https://web.rrzuzu.com/WebStatic/jianqing/images/add-icon.png" alt="">
+    </div>
+    <div class="banner">
+      <div class="pic" id="pic">11.11</div>
+    </div>
+    <div class="disc">
+      <div class="item">
+        <p id="dis">【xxxx】xxxx,xxxx,xxxx,xxxx,xxxx,xxxxxxxxxxxxxxxxxxxxxxxx</p>
+        <p id="mun">xxxxxxxxxxxxxxxxx</p>
+      </div>
+      <div class="item">
+        <img class="code" src="https://web.rrzuzu.com/WebStatic/jianqing/images/cod.png" alt="活动二维码">
+        <img class="share-icon" src="https://web.rrzuzu.com/WebStatic/jianqing/images/share-img.png" alt="">
+      </div>
+    </div>
+    <div class="static-img">
+      <img src="https://web.rrzuzu.com/WebStatic/jianqing/images/center.png" alt="">
+      <span class="sex" id="sex">xxxxxxxxxxxxxxxxx</span>
+    </div>
+    <div class="bottom" style="display: none">
+      <img src="https://web.rrzuzu.com/WebStatic/jianqing/images/bottom.png" alt="">
+    </div>
+  </main>
+  <div class="footer">
+    <div class="icon">
+      <i></i>
+      <i></i>
+      <i></i>
+    </div>
+    <div class="btn"></div>
+  </div>
+  <script src="https://web.rrzuzu.com/WebStatic/jianqing/js/main.js"></script>
+  <script src="https://web.rrzuzu.com/WebStatic/jianqing/js/html2canvas.js"></script>
+  <script>
+    var state = false;
+    var imgUrl;
+    function getNumRandom(n) {
+      return parseInt(Math.random() * n, 10) + 1;
+    };
+    var data = {
+      pic: ["11.11", "1.11", "5.20", "13.14", "111"],
+      disc: [
+        "【11.11】陪吃陪喝陪逛街，本人一日出租，可拥抱，可牵手，可租心，买到赚到，金钱技能满分！",
+        "【11.11】合法经营，诚信为本，免费送拥抱，小本经营，概无发票，需提前预约！",
+        "【11.11】经济适用，陪唠嗑，陪逛街，只限牵手拥抱，不提供拥抱亲密以上的服务！"
+      ],
+      sex: {
+        "1": "小哥哥，一枚",
+        "2": "小仙女，一枚"
+      },
+      num: "快递：0元  　　　　　　　 月销：1111"
+    }
+
+    var sex = getQueryString("sex");
+    function compress(img, width, height, ratio) {
+      var canvas, ctx, img64;
+      canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, width, height);
+      img64 = canvas.toDataURL("image/jpeg", ratio);
+      return img64;
+    }
+    $(function () {
+      var dragImg = document.querySelector('#dragImg');
+      dragImg.addEventListener('touchstart', f1 = function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var x, y, f1, f2;
+        e = e.touches[0];
+        y = dragImg.offsetTop - e.clientY;
+        document.addEventListener('touchmove', f2 = function (ev) {
+          var t = ev.touches[0];
+          dragImg.style.top = y + t.clientY + 'px';
+        }, false);
+        document.addEventListener("touchend", function (e) {
+          document.removeEventListener("touchend", f1);
+          document.removeEventListener("touchmove", f2);
+        }, false);
+      }, false);
+      function render() {
+        $("#dis").text(data.disc[getNumRandom(2)])
+        $("#pic").text(data.pic[getNumRandom(4)])
+        $("#mun").text(data["num"]);
+        $("#sex").text(data.sex[sex]);
+      }
+      $("#file").change(function (ev) {
+        var that = this;
+        var eleFile = ev.target.files[0]
+        var url = URL.createObjectURL(eleFile);
+        var callback = function (url) {
+          $(".remove").show();
+          var image = new Image();
+          image.src = url;
+          Load.alert.Loading()
+          image.onload = function () {
+            state = true;
+            var img64 = compress(image, image.width, image.height, 0.5);
+            $(that).hide(), $(that).next().attr("src", img64);
+            render()
+          }
+        }
+        rotatePhoto(this, callback)
+      });
+      $(".remove").click(function () {
+        state = false;
+        $(this).next().show();
+        $(this).next().next().attr("src", "https://web.rrzuzu.com/WebStatic/rry-activity/memezhao/images/add-icon.png").css({ top: 0, left: 0 })
+        $(this).hide();
+        $(this).next().show()[0].value = null;
+        return false;
+      });
+  var isLoading=false;
+  function makeImg() {
+        if (state) {
+          var isLoading = true;
+          Load.alert.Loading("正在生成中");
+          $("#main").addClass("success");
+          html2canvas($("#main")[0],{useCORS:true}).then(function(canvas){
+            imgBlob = canvas.toDataURL('image/jpeg', 1.0);
+            imgBlob = imgBlob.toString().substring(imgBlob.indexOf(",") + 1);
+            $("body").append(canvas);
+            return
+            $.ajax({
+              type: "POST",
+              dataType: "text",
+              // url: "http://wx.pingpingapp.com/victoria/upload",
+              url: baseUrl+"/singles/upload",
+              async: false,
+              data: { stream: imgBlob },
+              success: function (res) {
+                var isLoading = false;
+                console.log(res);
+                // debugger
+                // window.location.href = "./success.html?img=" + res;
+                res = JSON.parse(res);
+                if(res.code === 12000){
+                  imgUrl = res.data.url;
+                  window.location.href = "./success.html?img=" + imgUrl;
+                }           
+              },
+              error: function(){
+                alert("网络失败请稍后再试");
+              }
+            });
+            $(".footer").show();
+          });
+        } else {
+          LM.alert.Wechat("请上传一张图片");
+        }
+      };
+      // function makeImg() {
+      //   if (state) {
+      //       var isLoading=true;
+      //     Load.alert.Loading("正在生成中");
+      //     $("#main").addClass("success");
+      //     debugger
+      //       html2canvas($("#main")[0]).then(function(canvas){
+      //         imgBlob = canvas.toDataURL('image/jpeg', 1.0);
+      //         imgBlob = imgBlob.toString().substring(imgBlob.indexOf(",") + 1);
+      //         $("body").append(canvas);
+      //         return
+      //         $.ajax({
+      //              type: "POST",
+      //              dataType: "text",
+      //              url: baseUrl+"/singles/upload",
+      //              async: false,
+      //              data: { stream: imgBlob },
+      //              success: function (res) {
+      //                  res = JSON.parse(res);
+      //                  if(res.code === 12000){
+      //                      imgUrl = res.data.url;
+      //                      window.location.href = "./success.html?img=" + imgUrl;
+      //                  }
+      //              },
+      //              error: function(){
+      //                  alert("网络失败请稍后再试");
+      //              }
+      //          });
+      //         $(".footer").show();
+      //       });
+      //   } else {
+      //     LM.alert.Wechat("请上传一张图片");
+      //   }
+      // };
+      $(".footer .btn").click(function () {
+          if(isLoading){
+            return false;
+          }else {
+              makeImg()
+          }
+      });
+    });
+  </script>
+</body>
+
+</html>

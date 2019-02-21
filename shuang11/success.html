@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta
+      name="viewport"
+      content="initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit:cover"
+    />
+    <meta charset="utf-8" />
+    <title>减轻茶11.11出租单身</title>
+    <link rel="stylesheet" href="./css/style.less" />
+    <script src="./js/rem-init.js"></script>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./js/common.js"></script>
+    <script src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+  </head>
+  <body>
+    <div class="full">
+      <div class="center">
+        <img class="sha share-img current-img" src="" alt="" />
+        <div class="btn-content">
+          <a class="btn save">
+            <img
+              src=""
+              class="current-img"
+              alt=""
+              style="width: 100%;height: 100%;opacity: 0;"
+            />
+          </a>
+          <div class="btn shared"></div>
+        </div>
+      </div>
+    </div>
+    <div class="mask">
+      <div class="arrow">
+        <img src="./images/share.png" width="80%" alt="" />
+      </div>
+    </div>
+    <script>
+      var imgUrl = getQueryString("img");
+      $(function() {
+        $(".current-img").attr("src", imgUrl);
+      });
+      $(".shared").click(function() {
+        $(".mask").show();
+        $(".arrow").show();
+      });
+      var locationUrl = encodeURIComponent(window.location.href);
+      $.get(
+        baseUrl + "/wechat/portal/get/jssignature?encodeUrl=" + locationUrl,
+        function(res) {
+          if (!(res.code === 12000)) {
+            alert("获取签名失败");
+            return;
+          }
+          wx.config({
+            debug: false,
+            appId: ret.data.appId,
+            timestamp: ret.data.timestamp,
+            nonceStr: ret.data.nonceStr,
+            signature: ret.data.signature,
+            jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"]
+          });
+        }
+      );
+      var title = "万年单身狗要出租！";
+      var desc = "单身王者，待嫁闺蜜，今日全部出租！！！";
+      var shareImgUrl = "http://pic.51fen.com/webadmin/2018110711063184908.png";
+      var link = baseUrl + "/share.html?img=" + imgUrl;
+      $.ajax({
+        type:"POST",
+        async:false,
+        url:baseUrl + "/single/user/me",
+        success:function(res){
+          if (res.code == 12000) {
+            if (res.data.headimg) {
+              shareImgUrl = res.data.headimg;
+            }
+          }
+        },
+        error:function(){
+
+        }
+      })
+      wx.ready(function() {
+        wx.onMenuShareTimeline({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 
+          imgUrl: shareImgUrl, // 分享图标
+          success: function() {
+            alert("分享成功");
+          }
+        });
+        wx.onMenuShareAppMessage({
+          title: "万年单身狗要出租！", // 分享标题
+          desc: "单身王者，待嫁闺蜜，今日全部出租！！！", // 分享描述
+          link: link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          imgUrl: shareImgUrl, // 分享图标
+          success: function() {
+            alert("分享成功");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

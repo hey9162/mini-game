@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <title>减轻茶</title>
+    <meta
+      name="viewport"
+      content="initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit:cover"
+    />
+    <script src="https://web.rrzuzu.com/WebStatic/jianqing/wx-test/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://web.rrzuzu.com/WebStatic/jianqing/wx-test/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://web.rrzuzu.com/WebStatic/jianqing/shengdan/weui.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://web.rrzuzu.com/WebStatic/jianqing/shengdan/jquery-weui.min.css"
+    />
+    <script src="https://web.rrzuzu.com/WebStatic/jianqing/wx-test/js/rem-init.js"></script>
+    <script src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    <script src="https://web.rrzuzu.com/WebStatic/jianqing/wx-test/js/main.js"></script>
+    <script src="http://at.alicdn.com/t/font_781943_ctpubcynjzj.js"></script>
+    <style type="text/css">
+      .icon {
+         width: 1em; height: 1em;
+         vertical-align: -0.15em;
+         fill: currentColor;
+         overflow: hidden;
+      }
+  </style>
+  </head>
+  <body>
+    <div class="container hist-page">
+      <div class="center-modal">
+        <ul id="list-box">
+          <li>
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-weidu"></use>
+            </svg>
+            2019-02-06 15:15:30 减轻茶一盒
+            <p>发货状态：<span>待发货</span></p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <script src="https://web.rrzuzu.com/WebStatic/jianqing/shengdan/jquery-weui.min.js"></script>
+    <script>
+      $(function(){
+        function transList(arr){
+          var htmlArr = [];
+          arr.forEach(element => {
+            htmlArr.push('<li data-num="'+ element.orderNum +'" data-post="'+ element.expressageName +'">'+element.startTime+'减轻茶一盒<p>发货状态：<span class="'+(!element.state?'red':'green')+'">'+(element.state?'已发货':'待发货')+'</span></p></li>')
+          });
+          return htmlArr.join('');
+        };
+        // $.ajax({
+        //   url: apiURL+'/new_year/winer_self',
+        //   method:'post',
+        //   success:function(res){
+        //     $("#list-box").html(transList(res.data));
+        //   }
+        // });
+        $('#list-box').on('click','li',function () {
+          if(($(this).data("post"))){
+            $.alert('单号：'+ $(this).data("num") ,$(this).data("post"));
+          }else{
+            return;
+          }
+        })
+      });
+    </script>
+  </body>
+</html>

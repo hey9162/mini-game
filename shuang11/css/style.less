@@ -1,0 +1,260 @@
+html,
+body {
+  height: 100%;
+  
+}
+a:link,
+a:active,
+a:visited,
+a:hover {
+    background: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;  
+}
+a{
+	text-decoration: none;
+}
+* {
+  margin: 0;
+  padding: 0;
+  font-size: .625rem;
+  color: #666;
+  border: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+input,
+textarea,
+button,
+option,
+select {
+  outline: none;
+  background: #fff;
+  border: 0; 
+  -webkit-appearance: none;
+}
+.pull-right {
+  float: right;
+}
+.pull-left {
+  float: left;
+}
+.divblok { 
+  background-color:rgba(172,16,172,0.5);
+  width:200px;
+  height:100px;
+  position:absolute;
+  left:20px;
+  top:20px;
+}
+main{
+  // height: 36rem;
+  padding-bottom: 3.25rem;
+  background: #fff;
+}
+.head-img{
+  height: 17.5rem;
+  overflow: hidden;
+  position: relative;
+  .img{
+    width: 100%;
+    position: absolute;
+  }
+  .file-inp{
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+  }
+}
+.disc{
+  position: relative;
+  display: flex;
+  padding: 0 0.5rem;
+  height: 4.5rem;
+  justify-content: space-between;
+  align-items: center;
+  .item{
+    &:nth-child(1){
+      width: 80%;
+      word-break: break-all;
+      >p{
+        font-size: 0.65rem;
+        &:nth-child(1){
+          margin-bottom: 0.25rem;
+          font-size: 0.75rem;
+          font-weight: 700;
+        }
+      }
+    }
+    &:nth-child(2){
+      width: 20%;
+    }
+    .code{
+      margin-left: 0.5rem;
+      width: 3rem;
+      height: 3rem;
+      display: none;
+    }
+  }
+}
+.static-img,.bottom{
+  position: relative;
+  img{
+    width: 100%;
+  }
+}
+.static-img{
+  span.sex{
+    position: absolute;
+    bottom: 0.15rem;
+    left: 2.5rem;
+  }
+}
+.footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #fff;
+  padding: 0 0.75rem;
+  text-align: center;
+  height: 3.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .icon{
+    display: flex;
+    align-items: center;
+    i{
+      display: inline-block;
+      margin-right: 1.5rem;
+      width: 1rem;
+      height: 1.65rem;
+      background-size: 100% 100%;
+      &:nth-child(1){
+        background-image: url(../images/shop.png);
+      }
+      &:nth-child(2){
+        background-image: url(../images/msg.png);
+      }
+      &:nth-child(3){
+        background-image: url(../images/add.png);
+      }
+    }
+  }
+  .btn{
+    width: 7rem;
+    height: 1.55rem;
+    background-image: url(../images/make.png);
+    background-size: 100% 100%;
+  }
+}
+.banner{
+  position: relative;
+  height: 3.85rem;
+  background-image: url(../images/banner.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  .pic{
+    position: absolute;
+    font-size: 1.5rem;
+    color: #fff;
+    left: 2rem;
+    top: 0.75rem; 
+  }
+}
+main.success{
+  padding-bottom: 0 !important;
+  .code{
+    display: block !important;
+  }
+  .share-icon{
+    display: none;
+  }
+  .remove{
+    display: none !important;
+  }
+  margin-bottom: 0;
+  .bottom{
+    display: block !important;
+  }
+}
+.full{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-image: url(../images/bj.jpg);
+  background-size: 100% 100%;
+  text-align: center;
+  .center{
+    img{
+      width: 70%;
+    }
+  }
+  .btn-content{
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .btn{
+      width: 7.6rem;
+      height: 2.5rem;
+      background-size: 100% 100%;
+      &:nth-child(1){
+        margin-right: 1rem;
+        background-image: url(../images/bro.png);
+      };
+      &:nth-child(2){
+        background-image: url(../images/sis.png);
+      };
+      &.sha{
+        background-image: url(../images/btn3.png);
+      };
+      &.save{
+        background-image: url(../images/hai.png);
+      };
+      &.shared{
+        background-image: url(../images/shared.png);
+      };
+    }
+  }
+}
+.share-img{
+  width: 60% !important;
+}
+.arrow{
+  text-align: center;
+  display: none;
+  img{
+    margin-top: 2rem;
+  }
+}
+.mask{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #111111;
+  opacity: 0.7;
+  display: none;
+}
+.remove{
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 1rem;
+  height: 1rem;
+  z-index: 9;
+  background-image: url(../images/close.png);
+  background-size: 100% 100%;
+}
+.share-icon{
+  width: 3rem;
+  position: absolute;
+  right: 0;
+  top: 1.5rem;
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <title>减轻茶圣诞节</title>
+    <meta
+      name="viewport"
+      content="initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit:cover"
+    />
+    <link rel="stylesheet" href="./css/style.less">
+    <script src="rem.js"></script>
+    <script src="/jquery.js"></script>
+    <script src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="center-modal">
+        <img id="modal" src="" alt="">
+      </div>
+    </div>
+    <script>
+      $(function(){
+        var queryStr = getQueryString("result");
+        var $modal = $("#modal");
+        switch (queryStr) {
+          case 'loser':
+            $modal.attr("src","./images/loser.png")
+            break;
+            case 'can_draw':
+            $modal.attr("src","./images/box.png")
+            break;
+          default: 
+            break;
+        }
+        $modal.one("click",function () {
+          if(queryStr === 'can_draw'){
+            $.ajax({
+              type: "POST",
+              url: apiURL+"/christmas/draws",
+              success: function(res){
+                if(res.code === 12000){
+                  $modal.attr("src","./images/win.png");
+                  setTimeout(function(){
+                    window.location.href = './way.html'
+                  },2000)
+                }else{
+                  // $modal.attr("src","https://web.rrzuzu.com/WebStatic/jianqing/shengdan/images/loser2.png");
+                  // $modal.attr("src","https://web.rrzuzu.com/WebStatic/jianqing/shengdan/images/loser2.png");
+                  LM.alert.Wechat(res.msg)
+                }
+              }
+            })
+          }else{
+            return false;
+          }
+        });
+
+
+      });
+    </script>
+  </body>
+</html>

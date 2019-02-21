@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta
+      name="viewport"
+      content="initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit:cover"
+    />
+    <meta charset="utf-8" />
+    <title>减轻茶11.11出租单身</title>
+    <link rel="stylesheet" href="./css/style.less" />
+    <script src="./js/rem-init.js"></script>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/common.js"></script>
+    <script src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+  </head>
+  <body>
+    <div class="full">
+      <div class="center">
+        <img class="sha share-img" src="" alt="" />
+        <div class="btn-content"><a class="btn sha" href="./into.html"></a></div>
+      </div>
+    </div>
+    <script>
+      $(function() {
+        var imgUrl = getQueryString("img");
+        $(function(){
+          $(".share-img").attr("src",imgUrl);
+        });
+      });
+    </script>
+  </body>
+</html>
